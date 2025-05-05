@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         try {
-            $posts = Post::all();  // Ambil semua data post
+            $posts = Post::latest()->paginate(10);  // Ambil semua data post
             return view('posts.index', compact('posts'));  // Kirim data ke view 'posts.index'
         } catch (\Exception $e) {
             // Menampilkan error untuk debugging

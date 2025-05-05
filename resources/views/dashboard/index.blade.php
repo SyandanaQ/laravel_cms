@@ -22,5 +22,9 @@
                 </div>
             @endforeach
         </div>
+        <div class="mt-6">
+            {{ $latestPosts->links() }}
+        </div>
+        
     </div>
 @endsection
