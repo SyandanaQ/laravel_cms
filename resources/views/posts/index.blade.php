@@ -2,51 +2,65 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-3xl mx-auto mt-10">
-    <h2 class="text-2xl font-bold mb-4">Daftar Berita</h2>
+    <div class="max-w-3xl mx-auto mt-10">
+        <h2 class="text-2xl font-bold mb-4">Daftar Berita</h2>
 
-    @if(session('success'))
-        <div class="bg-green-500 text-white p-3 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
+        @if (session('success'))
+            <div class="bg-green-500 text-white p-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <a href="{{ route('posts.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Tambah Berita</a>
+        <a href="{{ route('posts.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Tambah
+            Berita</a>
 
-    <table class="min-w-full table-auto">
-        <thead>
-            <tr>
-                <th class="px-4 py-2 border">No</th>
-                <th class="px-4 py-2 border">Judul</th>
-                <th class="px-4 py-2 border">Gambar</th>
-                <th class="px-4 py-2 border">Tanggal</th>
-                <th class="px-4 py-2 border">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($posts as $post)
-    <tr>
-        <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
-        <td class="px-4 py-2 border">{{ $post->title }}</td>
-        <td class="px-4 py-2 border">
-            @if($post->image)
-                <img src="{{ asset('storage/'.$post->image) }}" alt="Image" width="100">
-            @endif
-        </td>
-        <td class="px-4 py-2 border">{{ $post->created_at->format('d-m-Y') }}</td>
-        <td class="px-4 py-2 border">
-            <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-500">Lihat</a>  <!-- Tombol Show -->
-            <a href="{{ route('posts.edit', $post->id) }}" class="text-blue-500">Edit</a>
-            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="text-red-500">Hapus</button>
-            </form>
-        </td>
-    </tr>
-@endforeach
+        <table class="min-w-full table-auto">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 border">No</th>
+                    <th class="px-4 py-2 border">Judul</th>
+                    <th class="px-4 py-2 border">Gambar</th>
+                    <th class="px-4 py-2 border">Tanggal</th>
+                    <th class="px-4 py-2 border">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($posts as $post)
+                    <tr>
+                        <td class="px-4 py-2 border">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-2 border">{{ $post->title }}</td>
+                        <td class="px-4 py-2 border">
+                            @if ($post->image)
+                                <img src="{{ asset('storage/' . $post->image) }}" alt="Image" width="100">
+                            @endif
+                        </td>
+                        <td class="px-4 py-2 border">{{ $post->created_at->format('d-m-Y') }}</td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex space-x-2">
+                                <a href="{{ route('posts.show', $post->slug) }}"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1 rounded">
+                                    Lihat
+                                </a>
+                                <a href="{{ route('posts.edit', $post->id) }}"
+                                    class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm px-3 py-1 rounded">
+                                    Edit
+                                </a>
+                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
 
-        </tbody>
-    </table>
-</div>
+                    </tr>
+                @endforeach
+
+            </tbody>
+        </table>
+    </div>
 @endsection

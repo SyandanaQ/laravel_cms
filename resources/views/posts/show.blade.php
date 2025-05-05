@@ -2,17 +2,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-3xl mx-auto mt-10">
-    <h1 class="text-3xl font-bold mb-4">{{ $post->title }}</h1>
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-7xl mx-auto mt-10 px-4">
+        <!-- Title Section -->
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-6">{{ $post->title }}</h1>
 
-    @if($post->image)
-        <img src="{{ asset('storage/'.$post->image) }}" alt="Image" class="mb-4" width="100%">
-    @endif
+        <!-- Image Section -->
+        @if ($post->image)
+            <img src="{{ asset('storage/' . $post->image) }}" alt="Image"
+                class="rounded-lg shadow-lg mb-6 w-full object-cover h-96">
+        @endif
 
-    <div>{!! $post->description !!}</div>
+        <!-- Description Section -->
+        <div class="text-gray-700 text-lg leading-relaxed">
+            {!! $post->description !!}
+        </div>
 
-    <div class="mt-6">
-        <a href="{{ route('posts.index') }}" class="text-blue-500">Kembali ke Daftar Berita</a>
+        <!-- Back Button Section -->
+        <div class="mt-8">
+            <a href="{{ route('posts.index') }}" class="text-blue-500 hover:text-blue-700 font-semibold">
+                ← Kembali ke Daftar Berita
+            </a>
+        </div>
     </div>
-</div>
 @endsection
