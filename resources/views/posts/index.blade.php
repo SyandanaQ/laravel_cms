@@ -46,7 +46,7 @@
                                     Edit
                                 </a>
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
-                                    onsubmit="return confirm('Yakin ingin menghapus?')">
+                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus postingan ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -56,7 +56,6 @@
                                 </form>
                             </div>
                         </td>
-
                     </tr>
                 @endforeach
 
